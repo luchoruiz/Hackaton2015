@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">DesafioLaNacionReader</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="home_label">Home</string>
+    <string name="faouvorites_label">Favourites</string>
+    <string name="downloads_label">Downloads</string>
+    <string name="more__label">More</string>
+    <string name="settings_label">Settings</string>
+
+    <!-- Categories array-->
+    <string-array name="string_categories">
+        <item> Ultimas noticias</item>
+        <item> Mas leidas</item>
+        <item> Politica</item>
+        <item> Economia</item>
+        <item> El mundo</item>
+        <item> Opinion</item>
+        <item> Sociedad</item>
+        <item> Espectaculos</item>
+        <item> Tecnologia</item>
+        <item> Deportes</item>
+        <item> Seguridad</item>
+        <item> Negocios</item>
+        <item> Vida y Ocio</item>
+        <item> Espectaculos</item>
+
+    </string-array>
+
+</resources>
