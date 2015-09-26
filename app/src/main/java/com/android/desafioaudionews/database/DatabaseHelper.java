@@ -125,6 +125,39 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return results;
     }
 
+    public  List<Note> getFavouritesNotes(){
+        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe FROM note where note.isFavorite = 1";
+        List<Note> results = new ArrayList<Note>();
+        GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
+                new RawRowMapper<Note>() {
+                    public Note mapRow(String[] columnNames,
+                                       String[] resultColumns) {
+
+                        Note note = new Note();
+                        note.id = Integer.valueOf((resultColumns[0]));
+                        note.titulo = resultColumns[1];
+                        note.bajada = resultColumns[2];
+                        note.url = resultColumns[3];
+                        note.imageSrc = resultColumns[4];
+                        note.epigrafe = resultColumns[5];
+
+
+                        return note;
+                    }
+                });
+
+        try {
+            results = rawResults.getResults();
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return results;
+    }
+
     /*
 	 * Close database and null all daos
 	 *
