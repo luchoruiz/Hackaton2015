@@ -1,5 +1,6 @@
 package com.android.desafioaudionews.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.NoteAdapter;
@@ -47,8 +49,14 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     @InjectView(R.id.fabFavourite)
     FloatingActionButton fabFavourite;
 
+    @InjectView(R.id.buttonShare)
+    Button buttonShare;
+
+    @InjectView(R.id.buttonViewMore)
+    Button buttonViewMore;
+
     @InjectView(R.id.buttonPlay)
-    Button buttonPlay;
+    FloatingActionButton buttonPlay;
     Picasso picasso;
 
     private DatabaseHelper databaseHelper;
@@ -79,6 +87,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         fabFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(NoteDetailActivity.this, getString(R.string.msg_added), Toast.LENGTH_SHORT).show();
                 getHelper().setAsFavourite(note.id);
             }
         });
@@ -87,6 +96,25 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         } else {
             // holder.noteImage.setImageResource(R.drawable.default_image);
         }
+
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toShare = new Intent(getApplicationContext(), ScrShare.class);
+                toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(toShare);
+            }
+        });
+
+        buttonViewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent webView = new Intent(getApplicationContext(), ScrWebViewActivity.class);
+                webView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                webView.putExtra("url",UrlConstants.BASE_LANACION + note.url);
+                startActivity(webView);
+            }
+        });
     }
 
     private void loadPhoto(String url, ImageView imageView) {

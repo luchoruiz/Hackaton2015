@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DesafioLaNacionReader</string>
+    <string name="app_name">aNews</string>
 
     <string name="action_settings">Settings</string>
     <string name="home_label">Home</string>
@@ -29,5 +29,13 @@
     </string-array>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_favourites">Favourites</string>
-    <string name="title_note">Listen New</string>
+    <string name="title_note">Listen</string>
+    <string name="title_new">New</string>
+    <string name="title_clear">Clear </string>
+    <string name="title_empty">Not have any  Favourites yet</string>
+    <string name="msg_added">Added to Favorites</string>
+    <string name="msg_clear">Clear Favorites</string>
+    <string name="btn_share">Share</string>
+    <string name="loading">Loading Articles</string>
+    <string name="btn_viewmore">View More</string>
 </resources>

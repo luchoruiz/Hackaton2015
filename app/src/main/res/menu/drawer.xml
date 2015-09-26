@@ -15,21 +15,12 @@ android:checkableBehavior="single">
     android:icon="@drawable/ic_favorite_black_24dp"
     android:title="@string/faouvorites_label"/>
 
-<item
-    android:id="@+id/drawer_downloaded"
-    android:icon="@drawable/ic_file_download_black_24dp"
-    android:title="@string/downloads_label"/>
 
-<item
-    android:id="@+id/drawer_more"
-    android:icon="@drawable/ic_more_horiz_black_24dp"
-    android:title="@string/more__label"/>
 
-<item
-    android:id="@+id/drawer_settings"
-    android:icon="@drawable/ic_settings_black_24dp"
-    android:title="@string/settings_label"/>
 
 </group>
-
+    <item
+        android:id="@+id/drawer_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/settings_label"/>
     </menu>

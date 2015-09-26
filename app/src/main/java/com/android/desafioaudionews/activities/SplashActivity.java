@@ -33,15 +33,6 @@ public class SplashActivity extends AppCompatActivity implements Response.Listen
             RequestConnector requestConnector = new RequestConnector(SplashActivity.this);
             requestConnector.getNotes(this, this, Const.REQUEST_NOTES);
 
-            /*new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // This method will be executed once the timer is over
-                    // Start your app main activity
-                    // close this activity
-                    //finish();
-                }
-            }, SPLASH_TIME_OUT);*/
         }
 
 
@@ -69,9 +60,9 @@ public class SplashActivity extends AppCompatActivity implements Response.Listen
 
     private void persistData(List<Note> notes){
         for (Note note: notes){
-            getHelper().getNoteDao().createOrUpdate(note);
-            getHelper().getCategoryDao().createOrUpdate(note.category);
             try {
+                getHelper().getNoteDao().create(note);
+                getHelper().getCategoryDao().create(note.category);
                 getHelper().getCategoryNoteDao().createOrUpdate(new CategoryNote(note.category.id, note.id));
             }catch (Exception e){
 

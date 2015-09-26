@@ -61,7 +61,7 @@ public class CategoryFragment extends Fragment implements OnRecyclerItemClick{
     }
 
     private void drawNotes() {
-        List<Note> notesForCategory =getNotesByCategory(categoryID);
+        List<Note> notesForCategory = getNotesByCategory(categoryID);
         mAdapter = new NoteAdapter(getContext(),notesForCategory, this);
         mRecyclerView.setAdapter(mAdapter);
 

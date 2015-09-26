@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.android.desafioaudionews.models.Category;
 import com.android.desafioaudionews.models.CategoryNote;
 import com.android.desafioaudionews.models.Note;
-import com.android.desafioaudionews.models.Tag;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RawRowMapper;
@@ -20,10 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
-    private RuntimeExceptionDao<Tag, Integer> tagDao = null;
     private RuntimeExceptionDao<Category, Integer> categoryDao = null;
     private RuntimeExceptionDao<CategoryNote, Integer> categorynoteDao = null;
 
@@ -35,7 +33,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Note.class);
-            TableUtils.createTable(connectionSource, Tag.class);
             TableUtils.createTable(connectionSource, Category.class);
             TableUtils.createTable(connectionSource, CategoryNote.class);
         } catch (SQLException e) {
@@ -48,7 +45,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                           int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource, Note.class, true);
-            TableUtils.dropTable(connectionSource, Tag.class, true);
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, CategoryNote.class, true);
             // after we drop the old databases, we create the new ones
@@ -65,12 +61,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return noteDao;
     }
 
-    public RuntimeExceptionDao<Tag, Integer> getTagDao() {
-        if (tagDao == null) {
-            tagDao = getRuntimeExceptionDao(Tag.class);
-        }
-        return tagDao;
-    }
+
     public RuntimeExceptionDao<Category, Integer> getCategoryDao() {
         if (categoryDao == null) {
             categoryDao = getRuntimeExceptionDao(Category.class);
@@ -94,7 +85,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public  List<Note> getNotesByCategoryID(int categoryID){
-        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " ";
+        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe,note.imageHeight,note.imageWidth FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " order by note.fecha";
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
@@ -108,7 +99,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                         note.url = resultColumns[3];
                         note.imageSrc = resultColumns[4];
                         note.epigrafe = resultColumns[5];
-
+                        note.imageHeight = Integer.valueOf(resultColumns[6]);
+                        note.imageWidth = Integer.valueOf(resultColumns[7]);
 
                         return note;
                     }
@@ -127,7 +119,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public  List<Note> getFavouritesNotes(){
-        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe FROM note where note.isFavorite = 1";
+        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe,note.imageHeight,note.imageWidth FROM note where note.isFavorite = 1 order by note.fecha";
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
@@ -141,7 +133,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                         note.url = resultColumns[3];
                         note.imageSrc = resultColumns[4];
                         note.epigrafe = resultColumns[5];
-
+                        note.imageHeight = Integer.valueOf(resultColumns[6]);
+                        note.imageWidth = Integer.valueOf(resultColumns[7]);
 
                         return note;
                     }
@@ -156,11 +149,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
+    public  void deleteAllFavourites(List<Note> notes){
+        for (Note note:notes){
+            setAsFavourite(note.id, false);
+        }
+    }
+
     public  void setAsFavourite(int noteId){
         UpdateBuilder<Note, Integer> updateBuilder = getNoteDao().updateBuilder();
         try {
 
-            updateBuilder.updateColumnValue("isFavorite", 1);
+            updateBuilder.updateColumnValue("isFavorite", true);
             updateBuilder.where().eq("id", noteId);
             updateBuilder.update();
         } catch (SQLException e) {
@@ -168,6 +167,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    public  void setAsFavourite(int noteId, boolean value){
+        UpdateBuilder<Note, Integer> updateBuilder = getNoteDao().updateBuilder();
+        try {
+
+            updateBuilder.updateColumnValue("isFavorite", value);
+            updateBuilder.where().eq("id", noteId);
+            updateBuilder.update();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     /*
 	 * Close database and null all daos
 	 *
@@ -176,7 +186,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         noteDao = null;
-        tagDao = null;
         categoryDao = null;
         categorynoteDao = null;
     }

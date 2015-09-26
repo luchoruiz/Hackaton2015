@@ -30,21 +30,15 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/contentViews"
+        <WebView
+            android:id="@+id/webview"
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/appBarLayout">
 
-        </android.support.v7.widget.RecyclerView>
+        </WebView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/title_empty"
-            android:visibility="invisible"
-            android:id="@+id/textViewLabelEmpty" />
+
 
     </RelativeLayout>
 

@@ -1,7 +1,6 @@
 package com.android.desafioaudionews.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,16 +42,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         return vh;
     }
-   /* @Override public void onClick(final View v) {
-        // Give some time to the ripple to finish the effect
-        if (onItemClickListener != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override public void run() {
-                    onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
-                }
-            }, 200);
-        }
-    }*/
+
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Note currentItem= mDataset.get(position);
@@ -67,7 +58,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         String imageUrl=currentItem.imageSrc;
         if (imageUrl!=null){
-            loadPhoto(UrlConstants.BASE_IMAGE_URL+imageUrl, holder.noteImage);
+            loadPhoto(UrlConstants.BASE_IMAGE_URL+imageUrl, holder.noteImage,currentItem.imageWidth,currentItem.imageHeight);
         } else {
            holder.noteImage.setImageResource(R.drawable.placeholder);
         }
@@ -105,10 +96,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         }
     }
 
-    private void loadPhoto(String url, ImageView imageView) {
+    private void loadPhoto(String url, ImageView imageView, int imageHeight, int imageWidth) {
 
         picasso.load(url)
                 .noFade()
+                .resize(imageHeight/2, imageWidth/2)
                 .error(R.drawable.placeholder)
                 .into(imageView);
     }

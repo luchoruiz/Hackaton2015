@@ -1,8 +1,5 @@
 package com.android.desafioaudionews.models;
 
-import android.util.Log;
-
-import com.arasthel.asyncjob.AsyncJob;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -63,7 +60,14 @@ public class Note {
     public String epigrafe;
 
     @DatabaseField
+    public int imageHeight;
+
+    @DatabaseField
+    public int imageWidth;
+
+    @DatabaseField
     public String imageSrc;
+
 
     @DatabaseField
     public boolean isFavorite;
@@ -95,6 +99,8 @@ public class Note {
             try {
                 JSONObject srcJSONObj = ((JSONObject)strNotes.getJSONArray("imagenes").get(0));
                 aNote.imageSrc = srcJSONObj.getString("src");
+                aNote.imageHeight = srcJSONObj.getInt("alto");
+                aNote.imageWidth = srcJSONObj.getInt("ancho");
             } catch (JSONException e){
 
             }
@@ -141,6 +147,8 @@ public class Note {
                     try {
                         JSONObject srcJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0));
                         aNote.imageSrc = srcJSONObj.getString("src");
+                        aNote.imageHeight = srcJSONObj.getInt("alto");
+                        aNote.imageWidth = srcJSONObj.getInt("ancho");
                     } catch (JSONException e){
 
                     }
@@ -156,29 +164,6 @@ public class Note {
         return notes;
 
     }
-
-    public static void parseAsyncNotes(final JSONObject strNotes) {
-
-        new AsyncJob.AsyncJobBuilder<Boolean>()
-                .doInBackground(new AsyncJob.AsyncAction<Boolean>() {
-                    @Override
-                    public Boolean doAsync() {
-                        List<Note> notes = parseNotes(strNotes);
-                        return true;
-                    }
-                })
-                .doWhenFinished(new AsyncJob.AsyncResultAction<Boolean>() {
-                    @Override
-                    public void onResult(Boolean result) {
-                        Log.e("asdasda", "asdasdas");
-                        //Toast.makeText(context, "Result was: " + result, Toast.LENGTH_SHORT).show();
-                    }
-                }).create().start();
-
-
-
-    }
-
 
 
 

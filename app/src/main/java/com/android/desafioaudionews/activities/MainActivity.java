@@ -62,15 +62,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(newIntent);
                         drawerLayout.closeDrawers();
                         break;
-                    case R.id.drawer_downloaded:
-                        Intent toShare = new Intent(getApplicationContext(), ScrShare.class);
-                        toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getApplicationContext().startActivity(toShare);
-                        drawerLayout.closeDrawers();
-                        break;
-                    case R.id.drawer_more:
-                        break;
-
 
                 }
 
