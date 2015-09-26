@@ -34,11 +34,9 @@ public class TTSManager implements TextToSpeech.OnInitListener {
     //status check code
     private int MY_DATA_CHECK_CODE = 0;
 
-    private TTSManager(Context context) {
+    public TTSManager(Context context) {
         mCtx = context;
         myTTS = new TextToSpeech(context, this);
-
-
     }
 
     @Override
@@ -85,19 +83,24 @@ public class TTSManager implements TextToSpeech.OnInitListener {
         });
     }
 
-    public static synchronized TTSManager getInstance(Context context) {
+   /* public static synchronized TTSManager getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new TTSManager(context);
         }
         return mInstance;
     }
-
+*/
     public void synthesizeToFIle(String text, final onSynthesizeFinish listener) {
         this.mListener = listener;
         setListener();
         HashMap<String, String> myHashRender = new HashMap<String, String>();
         myHashRender.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, text);
         myTTS.synthesizeToFile(text, myHashRender, destFileName);
+    }
+
+    public void stop(){
+        myTTS.stop();
+        myTTS.shutdown();
     }
 
 }
