@@ -98,20 +98,16 @@ public class Note {
                     aNote.url = jsonObj.getString("url");
                     aNote.image = Image.parseImage(jsonObj.getJSONArray("imagenes"));
                     aNote.category = Category.parseCategory(jsonObj.getJSONObject("categoria"));
+                    JSONObject epigrafeJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0)).getJSONObject("epigrafe");
+                    aNote.epigrafe = epigrafeJSONObj.getString("valor");
+                    JSONObject srcJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0));
+                    aNote.imageSrc = srcJSONObj.getString("src");
                     aNote.isFavorite = false;
                     notes.add(aNote);
-
-
-                    //List<Tag> taskFieldsList = new ArrayList<Tag>(Tag.parseTags(jsonObj.getJSONArray("tags")));
-                    //aNote.tags. = dao.getEmptyForeignCollection("entitiyCollection");
-                    //for(Tag tag: taskFieldsList){
-                    //    aNote.tags.add(tag);
-                   // }
 
                 } catch (JSONException e){
 
                 }
-
 
             }
         }

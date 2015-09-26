@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
     private RuntimeExceptionDao<Tag, Integer> tagDao = null;
@@ -93,7 +93,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public  List<Note> getNotesByCategoryID(int categoryID){
-        String query = "Select note.id, note.titulo, note.bajada, note.url FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " ";
+        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " ";
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
@@ -105,7 +105,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                         note.titulo = resultColumns[1];
                         note.bajada = resultColumns[2];
                         note.url = resultColumns[3];
-
+                        note.imageSrc = resultColumns[4];
+                        note.epigrafe = resultColumns[5];
 
 
                         return note;
