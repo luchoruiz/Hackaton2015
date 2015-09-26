@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 8;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
     private RuntimeExceptionDao<Tag, Integer> tagDao = null;
@@ -93,24 +93,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public  List<Note> getNotesByCategoryID(int categoryID){
-        String query = "Select note.id," +
-                "note.origen," +
-                "note.prioridad," +
-                "note.fecha, " +
-                "note.fechaActualizacion," +
-                "note.url," +
-                "note.abiertoComentarios, " +
-                "note.titulo, " +
-                "note.bajada," +
-                "note.contenido, " +
-                "note.entrada_id," +
-                "note._t, " +
-                "note.epigrafe" +
-                "note.imageSrc" +
-                "note.isFavorite" +
-                " FROM note JOIN categorynote where categorynote.id = " + categoryID + " ";
-
-
+        String query = "Select note.id, note.titulo, note.bajada, note.url FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " ";
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
@@ -119,20 +102,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
                         Note note = new Note();
                         note.id = Integer.valueOf((resultColumns[0]));
-                        note.origen = resultColumns[1];
-                        note.prioridad = resultColumns[2];
-                        note.fecha = resultColumns[3];
-                        note.fechaActualizacion = resultColumns[4];
-                        note.url = resultColumns[5];
-                        note.abiertoComentarios = resultColumns[6];
-                        note.titulo = resultColumns[7];
-                        note.bajada = resultColumns[8];
-                        note.contenido = resultColumns[9];
-                        note.entrada_id = resultColumns[10];
-                        note._t = resultColumns[11];
-                        note.epigrafe = resultColumns[12];
-                        note.imageSrc = resultColumns[13];
-                        note.isFavorite = Boolean.valueOf(resultColumns[14]);
+                        note.titulo = resultColumns[1];
+                        note.bajada = resultColumns[2];
+                        note.url = resultColumns[3];
+
+
+
                         return note;
                     }
                 });
