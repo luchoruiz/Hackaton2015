@@ -1,6 +1,11 @@
 package com.android.desafioaudionews.activities;
 
+<<<<<<< HEAD
 import android.content.Intent;
+=======
+import android.media.MediaPlayer;
+import android.net.Uri;
+>>>>>>> e624d34d7ac0bd6d70d80758160afb342a300d54
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -11,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,21 +24,28 @@ import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.NoteAdapter;
 import com.android.desafioaudionews.api.UrlConstants;
 import com.android.desafioaudionews.database.DatabaseHelper;
+import com.android.desafioaudionews.interfaces.onSynthesizeFinish;
 import com.android.desafioaudionews.models.Note;
 import com.android.desafioaudionews.models.RequestResponse;
 import com.android.desafioaudionews.utils.Const;
+import com.android.desafioaudionews.utils.TTSManager;
 import com.android.desafioaudionews.volley.RequestConnector;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
-public class NoteDetailActivity extends AppCompatActivity implements Response.Listener<RequestResponse>, Response.ErrorListener{
+public class NoteDetailActivity extends AppCompatActivity implements Response.Listener<RequestResponse>, Response.ErrorListener, onSynthesizeFinish {
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
     @InjectView(R.id.textViewTitle)
@@ -45,7 +58,10 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     TextView textViewContent;
     @InjectView(R.id.imageViewNote)
     ImageView imageViewNote;
+    @InjectView(R.id.seekBarProgress)
+    SeekBar mSeekBar;
 
+    private Handler durationHandler ;
     @InjectView(R.id.fabFavourite)
     FloatingActionButton fabFavourite;
 
@@ -58,9 +74,13 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     @InjectView(R.id.buttonPlay)
     FloatingActionButton buttonPlay;
     Picasso picasso;
+    Note mNote;
+    private TTSManager tts;
 
     private DatabaseHelper databaseHelper;
     private NoteAdapter mAdapter;
+    private MediaPlayer mMediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +88,16 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         setContentView(R.layout.activity_note_detail);
         ButterKnife.inject(this);
         setToolbar();
+        tts = TTSManager.getInstance(this);
         picasso = Picasso.with(this);
         int noteId = getIntent().getExtras().getInt("noteId");
 
         RequestConnector requestConnector = new RequestConnector(NoteDetailActivity.this);
-        requestConnector.getNoteWithId(noteId,this, this, Const.REQUEST_NOTE);
-
+        requestConnector.getNoteWithId(noteId, this, this, Const.REQUEST_NOTE);
 
     }
 
-    private void drawDetail(final Note note){
+    private void drawDetail(final Note note) {
         textViewTitle.setText(note.titulo);
         textViewSubtitle.setText(note.bajada);
         textViewCategory.setText(note.category.valor);
@@ -91,8 +111,8 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
                 getHelper().setAsFavourite(note.id);
             }
         });
-        if (note.imageSrc!=null){
-            loadPhoto(UrlConstants.BASE_IMAGE_URL+note.imageSrc, imageViewNote);
+        if (note.imageSrc != null) {
+            loadPhoto(UrlConstants.BASE_IMAGE_URL + note.imageSrc, imageViewNote);
         } else {
             // holder.noteImage.setImageResource(R.drawable.default_image);
         }
@@ -138,7 +158,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.menu_news, menu);
+        // getMenuInflater().inflate(R.menu.menu_news, menu);
         return true;
     }
 
@@ -153,7 +173,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     }
 
 
-    private List<Note> getFavouritesNotes(){
+    private List<Note> getFavouritesNotes() {
         return getHelper().getFavouritesNotes();
     }
 
@@ -174,7 +194,36 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     @Override
     public void onResponse(RequestResponse response) {
 
-        Note note = Note.parseNote(response.getJsonResponse());
-        drawDetail(note);
+        mNote = Note.parseNote(response.getJsonResponse());
+        drawDetail(mNote);
+    }
+
+    @OnClick(R.id.buttonPlay)
+    public void play(Button button) {
+        tts.synthesizeToFIle(mNote.getAllNote(), this);
+
+    }
+
+    @Override
+    public void onFinish(Uri uriFile) {
+        if (uriFile != null) {
+            playSoundFile(uriFile);
+        }
+    }
+
+    private void playSoundFile(Uri uriFile) {
+        mMediaPlayer = MediaPlayer.create(this, uriFile);
+        // synchronizedSeekBar();
+        mSeekBar.setMax((int) mMediaPlayer.getDuration());
+        mSeekBar.setClickable(false);
+        mMediaPlayer.start();
+        mSeekBar.setMax(mMediaPlayer.getDuration());
+
+    }
+
+   
+
+
+    private void synchronizedSeekBar() {
     }
 }

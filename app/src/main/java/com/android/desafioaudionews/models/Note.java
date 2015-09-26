@@ -166,6 +166,12 @@ public class Note {
     }
 
 
+   public String getAllNote(){
+       return this.titulo +";"+ this.bajada;
+   }
+
+
+
 
 
 

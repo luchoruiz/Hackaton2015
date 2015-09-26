@@ -29,6 +29,7 @@
     </string-array>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_favourites">Favourites</string>
+<<<<<<< HEAD
     <string name="title_note">Listen</string>
     <string name="title_new">New</string>
     <string name="title_clear">Clear </string>
@@ -38,4 +39,8 @@
     <string name="btn_share">Share</string>
     <string name="loading">Loading Articles</string>
     <string name="btn_viewmore">View More</string>
+=======
+    <string name="title_note">Listen New</string>
+    <string name="error_on_init_tts">Imposible lanzar el reproductor de audio</string>
+>>>>>>> e624d34d7ac0bd6d70d80758160afb342a300d54
 </resources>
