@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
         setDrawerMenu();
         setupViewPager();
 
-
-
-
     }
 
     private void setDrawerMenu() {
