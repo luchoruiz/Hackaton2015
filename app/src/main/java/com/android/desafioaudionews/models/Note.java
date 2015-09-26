@@ -74,6 +74,38 @@ public class Note {
     @DatabaseField(foreign = true)
     Image image;
 
+    public static Note parseNote(JSONObject strNotes) {
+        Note aNote = new Note();
+        try {
+            aNote.id = strNotes.getInt("id");
+            aNote.titulo = ((JSONObject) strNotes.getJSONArray("titulo").get(0)).getString("valor");
+            aNote.bajada = ((JSONObject) strNotes.getJSONArray("bajada").get(0)).getString("valor");
+            aNote.fecha = strNotes.getString("fecha");
+            aNote.url = strNotes.getString("url");
+            aNote.image = Image.parseImage(strNotes.getJSONArray("imagenes"));
+            aNote.category = Category.parseCategory(strNotes.getJSONObject("categoria"));
+
+            try {
+                JSONObject epigrafeJSONObj = ((JSONObject)strNotes.getJSONArray("imagenes").get(0)).getJSONObject("epigrafe");
+                aNote.epigrafe = epigrafeJSONObj.getString("valor");
+            } catch (JSONException e){
+
+            }
+
+            try {
+                JSONObject srcJSONObj = ((JSONObject)strNotes.getJSONArray("imagenes").get(0));
+                aNote.imageSrc = srcJSONObj.getString("src");
+            } catch (JSONException e){
+
+            }
+            aNote.isFavorite = false;
+
+        } catch (JSONException e){
+
+        }
+        return aNote;
+    }
+
 
     public static List<Note> parseNotes(JSONObject strNotes){
         List<Note> notes = new ArrayList<>();

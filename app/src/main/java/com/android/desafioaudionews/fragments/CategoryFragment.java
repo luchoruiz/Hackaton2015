@@ -1,5 +1,6 @@
 package com.android.desafioaudionews.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.android.desafioaudionews.R;
+import com.android.desafioaudionews.activities.NoteDetailActivity;
 import com.android.desafioaudionews.adapters.NoteAdapter;
-import com.android.desafioaudionews.utils.Const;
-
 import com.android.desafioaudionews.database.DatabaseHelper;
+import com.android.desafioaudionews.interfaces.OnRecyclerItemClick;
 import com.android.desafioaudionews.models.Note;
+import com.android.desafioaudionews.utils.Const;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import butterknife.InjectView;
 /**
  * Created by Lucho on 23/09/2015.
  */
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements OnRecyclerItemClick{
     private DatabaseHelper databaseHelper;
     private  int categoryID;
     @InjectView(R.id.contentViews)
@@ -55,14 +56,13 @@ public class CategoryFragment extends Fragment {
     }
 
     private void setRecycleView() {
-        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
     }
 
     private void drawNotes() {
         List<Note> notesForCategory =getNotesByCategory(categoryID);
-        mAdapter = new NoteAdapter(getContext(),notesForCategory);
+        mAdapter = new NoteAdapter(getContext(),notesForCategory, this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -78,5 +78,12 @@ public class CategoryFragment extends Fragment {
         }
         return databaseHelper;
 
+    }
+
+    @Override
+    public void onListItemClick(Object object) {
+        Intent intent = new Intent(getActivity(), NoteDetailActivity.class);
+        intent.putExtra("noteId", ((Note) object).id);
+        startActivity(intent);
     }
 }

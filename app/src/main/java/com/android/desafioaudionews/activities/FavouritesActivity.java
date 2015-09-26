@@ -5,12 +5,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.NoteAdapter;
 import com.android.desafioaudionews.database.DatabaseHelper;
+import com.android.desafioaudionews.interfaces.OnRecyclerItemClick;
 import com.android.desafioaudionews.models.Note;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -19,7 +21,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class FavouritesActivity extends AppCompatActivity {
+public class FavouritesActivity extends AppCompatActivity implements OnRecyclerItemClick {
     @InjectView(R.id.contentViews)
     RecyclerView mRecyclerView;
     @InjectView(R.id.toolbar)
@@ -40,7 +42,7 @@ public class FavouritesActivity extends AppCompatActivity {
 
     private void drawNotes(){
         List<Note> favouritesNotes = getFavouritesNotes();
-        mAdapter = new NoteAdapter(this,favouritesNotes);
+        mAdapter = new NoteAdapter(this,favouritesNotes, this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -85,5 +87,10 @@ public class FavouritesActivity extends AppCompatActivity {
                     OpenHelperManager.getHelper(this, DatabaseHelper.class);
         }
         return databaseHelper;
+    }
+
+    @Override
+    public void onListItemClick(Object object) {
+        Log.e("", "");
     }
 }
