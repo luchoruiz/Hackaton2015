@@ -26,3 +26,4 @@ build/
 /.idea/libraries 
 .DS_Store
 /build
+!/.gitignore

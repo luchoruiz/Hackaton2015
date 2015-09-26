@@ -28,5 +28,6 @@
         <item> Espectaculos</item>
 
     </string-array>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>
