@@ -51,10 +51,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 menuItem.setChecked(true);
-                Intent toShare = new Intent(getApplicationContext(), ScrShare.class);
-                toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(toShare);
-                drawerLayout.closeDrawers();
+                switch (menuItem.getItemId()){
+                    case R.id.drawer_home:
+                        break;
+                    case R.id.drawer_favourite:
+                        Intent newIntent = new Intent(MainActivity.this, FavouritesActivity.class);
+                        startActivity(newIntent);
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.drawer_downloaded:
+                        Intent toShare = new Intent(getApplicationContext(), ScrShare.class);
+                        toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(toShare);
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.drawer_more:
+                        break;
+
+
+                }
+
+
+
                 return true;
             }
         });
