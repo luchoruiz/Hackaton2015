@@ -15,6 +15,11 @@ import android.view.MenuItem;
 
 import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.CustomTabPagerAdapter;
+import com.android.desafioaudionews.database.DatabaseHelper;
+import com.android.desafioaudionews.models.Note;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.tabLayout)
     TabLayout tabLayout;
 
+    private DatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setToolbar();
         setDrawerMenu();
         setupViewPager();
+
+
+
 
     }
 
@@ -102,5 +112,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private List<Note> getNotesByCategory(int categoryID){
+        return getHelper().getNotesByCategoryID(categoryID);
+    }
 
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper =
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        }
+        return databaseHelper;
+    }
 }
