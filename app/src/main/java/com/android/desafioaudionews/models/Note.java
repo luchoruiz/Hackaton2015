@@ -170,7 +170,6 @@ public class Note {
                 .doWhenFinished(new AsyncJob.AsyncResultAction<Boolean>() {
                     @Override
                     public void onResult(Boolean result) {
-                        Log.e("asdasda", "asdasdas");
                         //Toast.makeText(context, "Result was: " + result, Toast.LENGTH_SHORT).show();
                     }
                 }).create().start();
@@ -178,7 +177,9 @@ public class Note {
 
 
     }
-
+   public String getAllNote(){
+       return this.titulo +";"+ this.bajada;
+   }
 
 
 

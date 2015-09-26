@@ -30,4 +30,5 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_favourites">Favourites</string>
     <string name="title_note">Listen New</string>
+    <string name="error_on_init_tts">Imposible lanzar el reproductor de audio</string>
 </resources>
