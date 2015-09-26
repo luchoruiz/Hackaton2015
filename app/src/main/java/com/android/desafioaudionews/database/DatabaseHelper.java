@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 8;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
     private RuntimeExceptionDao<Tag, Integer> tagDao = null;
@@ -93,7 +93,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public  List<Note> getNotesByCategoryID(int categoryID){
-        String query = "Select * FROM note JOIN categorynote where categorynote.id = " + categoryID + " ";
+        String query = "Select note.id, note.titulo, note.bajada, note.url FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " ";
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
@@ -101,20 +101,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                                        String[] resultColumns) {
 
                         Note note = new Note();
-                        note.id = Integer.valueOf((resultColumns[8]));
-                        note.origen = resultColumns[11];
-                        note.prioridad = resultColumns[12];
-                        note.fecha = resultColumns[6];
-                        note.fechaActualizacion = resultColumns[7];
-                        note.url = resultColumns[14];
-                        note.abiertoComentarios = resultColumns[1];
-                        note.titulo = resultColumns[13];
+                        note.id = Integer.valueOf((resultColumns[0]));
+                        note.titulo = resultColumns[1];
                         note.bajada = resultColumns[2];
-                        note.contenido = resultColumns[3];
-                        note.entrada_id = resultColumns[4];
-                        note._t = resultColumns[0];
-                        note.epigrafe = resultColumns[5];
-                        note.imageSrc = resultColumns[10];
+                        note.url = resultColumns[3];
+
+
+
                         return note;
                     }
                 });
