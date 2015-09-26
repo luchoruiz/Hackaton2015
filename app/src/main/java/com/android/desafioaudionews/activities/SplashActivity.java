@@ -62,13 +62,19 @@ public class SplashActivity extends AppCompatActivity implements Response.Listen
         for (Note note: notes){
             try {
                 getHelper().getNoteDao().create(note);
+            }catch (Exception e){
+                Log.e("",e.toString());
+            }
+            try {
                 getHelper().getCategoryDao().create(note.category);
-                getHelper().getCategoryNoteDao().createOrUpdate(new CategoryNote(note.category.id, note.id));
             }catch (Exception e){
                 Log.e("error",e.getMessage());
-
             }
-
+            try {
+            getHelper().getCategoryNoteDao().createOrUpdate(new CategoryNote(note.category.id, note.id));
+            }catch (Exception e){
+                Log.e("error",e.getMessage());
+            }
         }
     }
     private DatabaseHelper getHelper() {

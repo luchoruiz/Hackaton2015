@@ -95,6 +95,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonPlay.setImageResource(R.drawable.pause_icon);
                 tts.synthesizeToFIle(mNote.getAllNote(), NoteDetailActivity.this);
             }
         });
@@ -218,15 +219,8 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
 
     private void playSoundFile(Uri uriFile) {
         mMediaPlayer = MediaPlayer.create(this, uriFile);
-        // synchronizedSeekBar();
-        mSeekBar.setMax((int) mMediaPlayer.getDuration());
-        mSeekBar.setClickable(false);
         mMediaPlayer.start();
-        mSeekBar.setMax(mMediaPlayer.getDuration());
 
     }
 
-
-    private void synchronizedSeekBar() {
-    }
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 7;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
     private RuntimeExceptionDao<Category, Integer> categoryDao = null;
@@ -71,7 +71,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     public RuntimeExceptionDao<CategoryNote, Integer> getCategoryNoteDao() {
         if (categorynoteDao == null) {
-            categorynoteDao = getRuntimeExceptionDao(CategoryNote.class);
+            categorynoteDao = getRuntimeExceptionDao(CategoryNote   .class);
         }
         return categorynoteDao;
     }
@@ -85,7 +85,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     public  List<Note> getNotesByCategoryID(int categoryID){
-        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe,note.imageHeight,note.imageWidth FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID + " order by note.fecha";
+        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe,note.imageHeight,note.imageWidth FROM note JOIN categorynote where note.id = categorynote.noteId AND categorynote.categoryId = " + categoryID;
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
@@ -119,7 +119,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public  List<Note> getFavouritesNotes(){
-        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe,note.imageHeight,note.imageWidth FROM note where note.isFavorite = 1 order by note.fecha";
+        String query = "Select note.id, note.titulo, note.bajada, note.url, note.imageSrc, note.epigrafe,note.imageHeight,note.imageWidth FROM note where note.isFavorite = 1";
         List<Note> results = new ArrayList<Note>();
         GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
                 new RawRowMapper<Note>() {
