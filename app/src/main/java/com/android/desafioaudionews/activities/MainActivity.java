@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 menuItem.setChecked(true);
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.drawer_home:
                         break;
                     case R.id.drawer_favourite:
@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-
 
 
                 return true;
@@ -95,23 +94,23 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
 
         List<Category> categoryList = getHelper().getCategoryDao().queryForAll();
-       // List<CategoryNote> categoryNoteList = getHelper().getCategoryNoteDao().queryForAll();
-       // List<Note> note = getHelper().getNoteDao().queryForAll();
-
         CustomTabPagerAdapter adapter = new CustomTabPagerAdapter(getSupportFragmentManager(),categoryList);
-        /*for (String category : categoriesList) {
-            CategoryFragment fragment = new CategoryFragment();
-            adapter.addFrag(fragment);
-        }*/
+
         viewContainer.setAdapter(adapter);
         //this method is used to prevent that the ViewPager destroy the off-screen views
         viewContainer.setOffscreenPageLimit(categoryList.size());
         //disable scrolling into viwePager
         tabLayout.setupWithViewPager(viewContainer);
-
+        setCustomView(adapter);
     }
 
-
+    private void setCustomView(CustomTabPagerAdapter viewPager) {
+        int tabCount = tabLayout.getTabCount();
+        for (int i = 0; i < tabCount; i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(viewPager.drawTabView(i,getApplicationContext()));
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

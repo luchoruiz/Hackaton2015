@@ -1,10 +1,15 @@
 package com.android.desafioaudionews.adapters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
+import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.fragments.CategoryFragment;
 import com.android.desafioaudionews.models.Category;
 import com.android.desafioaudionews.utils.Const;
@@ -40,6 +45,14 @@ public class CustomTabPagerAdapter  extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return ((Category)mCategoryList.get(position)).valor;
+        return (mCategoryList.get(position)).valor;
+    }
+
+    public View drawTabView(int i,Context ctx) {
+        View customView = LayoutInflater.from(ctx).inflate(R.layout.tab_header_view, null);
+        //set resources
+        TextView categoryName = (TextView) customView.findViewById(R.id.txtCategoryName);
+        categoryName.setText(mCategoryList.get(i).valor);
+        return customView;
     }
 }

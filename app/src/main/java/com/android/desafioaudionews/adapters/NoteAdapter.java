@@ -1,6 +1,7 @@
 package com.android.desafioaudionews.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         if (imageUrl!=null){
             loadPhoto(UrlConstants.BASE_IMAGE_URL+imageUrl, holder.noteImage);
         } else {
-           // holder.noteImage.setImageResource(R.drawable.default_image);
+           holder.noteImage.setImageResource(R.drawable.placeholder);
         }
         holder.txtTitle.setText(currentItem.titulo);
         holder.txtNoteBajada.setText(currentItem.bajada);
@@ -84,6 +85,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         picasso.load(url)
                 .noFade()
+                .error(R.drawable.placeholder)
                 .into(imageView);
     }
 }
