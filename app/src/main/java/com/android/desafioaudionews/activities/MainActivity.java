@@ -1,5 +1,6 @@
 package com.android.desafioaudionews.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 menuItem.setChecked(true);
+                Intent toShare = new Intent(getApplicationContext(),ScrShare.class);
+                toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(toShare);
                 drawerLayout.closeDrawers();
                 return true;
             }
