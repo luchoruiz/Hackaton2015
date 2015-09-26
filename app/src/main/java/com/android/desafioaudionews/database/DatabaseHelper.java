@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 1;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
     private RuntimeExceptionDao<Tag, Integer> tagDao = null;

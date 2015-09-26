@@ -98,10 +98,20 @@ public class Note {
                     aNote.url = jsonObj.getString("url");
                     aNote.image = Image.parseImage(jsonObj.getJSONArray("imagenes"));
                     aNote.category = Category.parseCategory(jsonObj.getJSONObject("categoria"));
-                    JSONObject epigrafeJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0)).getJSONObject("epigrafe");
-                    aNote.epigrafe = epigrafeJSONObj.getString("valor");
-                    JSONObject srcJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0));
-                    aNote.imageSrc = srcJSONObj.getString("src");
+
+                    try {
+                        JSONObject epigrafeJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0)).getJSONObject("epigrafe");
+                        aNote.epigrafe = epigrafeJSONObj.getString("valor");
+                    } catch (JSONException e){
+
+                    }
+
+                    try {
+                        JSONObject srcJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0));
+                        aNote.imageSrc = srcJSONObj.getString("src");
+                    } catch (JSONException e){
+
+                    }
                     aNote.isFavorite = false;
                     notes.add(aNote);
 
