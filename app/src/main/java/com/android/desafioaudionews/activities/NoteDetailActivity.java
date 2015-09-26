@@ -86,7 +86,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         setContentView(R.layout.activity_note_detail);
         ButterKnife.inject(this);
         setToolbar();
-        tts = TTSManager.getInstance(this);
+        tts = new TTSManager(this);
         picasso = Picasso.with(this);
         int noteId = getIntent().getExtras().getInt("noteId");
 
@@ -95,8 +95,19 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonPlay.setImageResource(R.drawable.pause_icon);
-                tts.synthesizeToFIle(mNote.getAllNote(), NoteDetailActivity.this);
+                if (mMediaPlayer != null) {
+                    if (mMediaPlayer.isPlaying()) {
+                        mMediaPlayer.pause();
+                        buttonPlay.setImageResource(R.drawable.play_icon);
+                    } else {
+                        buttonPlay.setImageResource(R.drawable.pause_icon);
+                        mMediaPlayer.start();
+                    }
+                }else {
+                    buttonPlay.setImageResource(R.drawable.pause_icon);
+                    tts.synthesizeToFIle(mNote.getAllNote(), NoteDetailActivity.this);
+                
+                }
             }
         });
     }
@@ -223,4 +234,19 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mMediaPlayer != null) {
+            if (mMediaPlayer.isPlaying())
+                mMediaPlayer.stop();
+            mMediaPlayer.stop();
+            mMediaPlayer.reset();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+            tts.stop();
+        }
+
+
+    }
 }
