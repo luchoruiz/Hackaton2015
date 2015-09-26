@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.desafioaudionews.R;
+import com.android.desafioaudionews.api.UrlConstants;
 import com.android.desafioaudionews.models.Note;
 import com.squareup.picasso.Picasso;
 
@@ -51,13 +52,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Note currentItem= mDataset.get(position);
-        String imageUrl=null;
+        String imageUrl=currentItem.imageSrc;
         if (imageUrl!=null){
-            loadPhoto(imageUrl, holder.noteImage);
+            loadPhoto(UrlConstants.BASE_IMAGE_URL+imageUrl, holder.noteImage);
         } else {
            // holder.noteImage.setImageResource(R.drawable.default_image);
         }
-        holder.txtNoteBajada.setText(currentItem.titulo);
+        holder.txtTitle.setText(currentItem.titulo);
         holder.txtNoteBajada.setText(currentItem.bajada);
     }
 
@@ -83,7 +84,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
         picasso.load(url)
                 .noFade()
-                //.error(R.drawableplace_holder_read)
                 .into(imageView);
     }
 }
