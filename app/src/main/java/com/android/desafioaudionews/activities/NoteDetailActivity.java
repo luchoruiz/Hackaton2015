@@ -1,6 +1,7 @@
 package com.android.desafioaudionews.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +44,9 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     @InjectView(R.id.imageViewNote)
     ImageView imageViewNote;
 
+    @InjectView(R.id.fabFavourite)
+    FloatingActionButton fabFavourite;
+
     @InjectView(R.id.buttonPlay)
     Button buttonPlay;
     Picasso picasso;
@@ -65,13 +69,19 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
 
     }
 
-    private void drawDetail(Note note){
+    private void drawDetail(final Note note){
         textViewTitle.setText(note.titulo);
         textViewSubtitle.setText(note.bajada);
         textViewCategory.setText(note.category.valor);
         textViewCategory.setVisibility(View.VISIBLE);
         textViewTitle.setText(note.titulo);
 
+        fabFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getHelper().setAsFavourite(note.id);
+            }
+        });
         if (note.imageSrc!=null){
             loadPhoto(UrlConstants.BASE_IMAGE_URL+note.imageSrc, imageViewNote);
         } else {

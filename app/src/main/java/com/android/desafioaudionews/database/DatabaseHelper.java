@@ -11,6 +11,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.dao.RawRowMapper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -148,14 +149,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         try {
             results = rawResults.getResults();
-
         } catch (SQLException e) {
-
             e.printStackTrace();
-
         }
-
         return results;
+    }
+
+
+    public  void setAsFavourite(int noteId){
+        UpdateBuilder<Note, Integer> updateBuilder = getNoteDao().updateBuilder();
+        try {
+
+            updateBuilder.updateColumnValue("isFavorite", 1);
+            updateBuilder.where().eq("id", noteId);
+            updateBuilder.update();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
