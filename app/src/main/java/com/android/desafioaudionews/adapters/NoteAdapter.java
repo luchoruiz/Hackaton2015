@@ -1,6 +1,7 @@
 package com.android.desafioaudionews.adapters;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
-
+   /* @Override public void onClick(final View v) {
+        // Give some time to the ripple to finish the effect
+        if (onItemClickListener != null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override public void run() {
+                    onItemClickListener.onItemClick(v, (ViewModel) v.getTag());
+                }
+            }, 200);
+        }
+    }*/
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Note currentItem= mDataset.get(position);
