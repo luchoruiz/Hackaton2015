@@ -12,16 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.CustomTabPagerAdapter;
 import com.android.desafioaudionews.database.DatabaseHelper;
-import com.android.desafioaudionews.models.Note;
-
 import com.android.desafioaudionews.models.Category;
-
-
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+
 import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -48,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements SweetAlertDialog.
         setDrawerMenu();
         setupViewPager();
 
+    }
+
+    protected void onResume(){
+        super.onResume();
+        setupViewPager();
     }
 
     private void setDrawerMenu() {

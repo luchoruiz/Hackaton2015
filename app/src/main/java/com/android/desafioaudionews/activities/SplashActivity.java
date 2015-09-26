@@ -56,6 +56,7 @@ public class SplashActivity extends AppCompatActivity implements Response.Listen
 
         Intent i = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(i);
+        finish();
     }
 
     private void persistData(List<Note> notes){
