@@ -3,7 +3,10 @@ package com.android.desafioaudionews.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.android.desafioaudionews.models.Category;
+import com.android.desafioaudionews.models.CategoryNote;
 import com.android.desafioaudionews.models.Note;
+import com.android.desafioaudionews.models.Tag;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -13,9 +16,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
     public static String database_name = "audionews_bd";
     private RuntimeExceptionDao<Note, Integer> noteDao = null;
+    private RuntimeExceptionDao<Tag, Integer> tagDao = null;
+    private RuntimeExceptionDao<Category, Integer> categoryDao = null;
+    private RuntimeExceptionDao<CategoryNote, Integer> categorynoteDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, database_name, null, DATABASE_VERSION);
@@ -25,6 +31,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Note.class);
+            TableUtils.createTable(connectionSource, Tag.class);
+            TableUtils.createTable(connectionSource, Category.class);
+            TableUtils.createTable(connectionSource, CategoryNote.class);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -35,6 +44,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                           int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource, Note.class, true);
+            TableUtils.dropTable(connectionSource, Tag.class, true);
+            TableUtils.dropTable(connectionSource, Category.class, true);
+            TableUtils.dropTable(connectionSource, CategoryNote.class, true);
             // after we drop the old databases, we create the new ones
             onCreate(db, connectionSource);
         } catch (SQLException e) {
@@ -49,6 +61,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return noteDao;
     }
 
+    public RuntimeExceptionDao<Tag, Integer> getTagDao() {
+        if (tagDao == null) {
+            tagDao = getRuntimeExceptionDao(Tag.class);
+        }
+        return tagDao;
+    }
+    public RuntimeExceptionDao<Category, Integer> getCategoryDao() {
+        if (categoryDao == null) {
+            categoryDao = getRuntimeExceptionDao(Category.class);
+        }
+        return categoryDao;
+    }
+
+    public RuntimeExceptionDao<CategoryNote, Integer> getCategoryNoteDao() {
+        if (categorynoteDao == null) {
+            categorynoteDao = getRuntimeExceptionDao(CategoryNote.class);
+        }
+        return categorynoteDao;
+    }
 
     public void deleteAllNotes(){
         List<Note> allNotes = getNoteDao().queryForAll();
@@ -66,6 +97,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         noteDao = null;
+        tagDao = null;
+        categoryDao = null;
+        categorynoteDao = null;
     }
 
 }
