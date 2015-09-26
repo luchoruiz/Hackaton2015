@@ -98,11 +98,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     private void loadPhoto(String url, ImageView imageView, int imageHeight, int imageWidth) {
 
-        picasso.load(url)
-                .noFade()
-                .resize(imageHeight/2, imageWidth/2)
-                .error(R.drawable.placeholder)
-                .into(imageView);
+        if(imageWidth != 0 && imageHeight != 0){
+            picasso.load(url)
+                    .noFade()
+                    .resize(imageHeight/2, imageWidth/2)
+                    .error(R.drawable.placeholder)
+                    .into(imageView);
+        } else {
+            picasso.load(url)
+                    .noFade()
+                    .error(R.drawable.placeholder)
+                    .into(imageView);
+        }
+
     }
 
     public interface onViewHolderClick {
