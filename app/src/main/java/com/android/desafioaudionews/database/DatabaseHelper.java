@@ -8,11 +8,14 @@ import com.android.desafioaudionews.models.CategoryNote;
 import com.android.desafioaudionews.models.Note;
 import com.android.desafioaudionews.models.Tag;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.GenericRawResults;
+import com.j256.ormlite.dao.RawRowMapper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -88,6 +91,47 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+
+    public  List<Note> getNotesByCategoryID(int categoryID){
+        String query = "Select * FROM category WHERE id = " + categoryID;
+        List<Note> results = new ArrayList<Note>();
+        GenericRawResults<Note> rawResults = getNoteDao().queryRaw(query,
+                new RawRowMapper<Note>() {
+                    public Note mapRow(String[] columnNames,
+                                                   String[] resultColumns) {
+
+                        Note note = new Note();
+                        note.id = Integer.valueOf((resultColumns[0]));
+                        note.origen =  resultColumns[1];
+                        note.prioridad =  resultColumns[2];
+                        note.fecha =  resultColumns[3];
+                        note.fechaActualizacion =  resultColumns[4];
+                        note.url =  resultColumns[5];
+                        note.abiertoComentarios =  resultColumns[6];
+                        note.titulo =  resultColumns[7];
+
+                        note.titulo =  resultColumns[8];
+                        note.bajada =  resultColumns[9];
+                        note.contenido =  resultColumns[10];
+                        note.entrada_id =  resultColumns[11];
+                        note._t =  resultColumns[12];
+                        note.epigrafe =  resultColumns[13];
+                        note.imageSrc =  resultColumns[14];
+                        return note;
+                    }
+                });
+
+        try {
+            results = rawResults.getResults();
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return results;
+    }
 
     /*
 	 * Close database and null all daos

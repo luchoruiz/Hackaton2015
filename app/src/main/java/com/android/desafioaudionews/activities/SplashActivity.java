@@ -61,6 +61,13 @@ public class SplashActivity extends AppCompatActivity implements Response.Listen
     @Override
     public void onResponse(RequestResponse response) {
         List<Note> notes =  Note.parseNotes(response.getJsonResponse());
+        persistData(notes);
+
+        Intent i = new Intent(SplashActivity.this, MainActivity.class);
+        startActivity(i);
+    }
+
+    private void persistData(List<Note> notes){
         for (Note note: notes){
             getHelper().getNoteDao().createOrUpdate(note);
             getHelper().getCategoryDao().createOrUpdate(note.category);
@@ -71,10 +78,7 @@ public class SplashActivity extends AppCompatActivity implements Response.Listen
             }
 
         }
-        Intent i = new Intent(SplashActivity.this, MainActivity.class);
-        startActivity(i);
     }
-
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {
             databaseHelper =

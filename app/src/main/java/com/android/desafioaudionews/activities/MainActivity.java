@@ -17,8 +17,6 @@ import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.CustomTabPagerAdapter;
 import com.android.desafioaudionews.database.DatabaseHelper;
 import com.android.desafioaudionews.models.Category;
-import com.android.desafioaudionews.models.CategoryNote;
-import com.android.desafioaudionews.models.Note;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.List;
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     NavigationView view;
     @InjectView(R.id.tabLayout)
     TabLayout tabLayout;
-
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -112,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {
