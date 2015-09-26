@@ -1,6 +1,7 @@
 package com.android.desafioaudionews.volley;
 
 import com.android.desafioaudionews.models.RequestResponse;
+import com.android.desafioaudionews.utils.StreamToStringConverter;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -11,6 +12,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -59,7 +61,9 @@ public class CustomRequest <T> extends Request<T> {
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
-            String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+             String UTF8String = StreamToStringConverter.convert(response.data);
+             String json = new String(UTF8String);
+
             jsonObj = new JSONObject(json);
             T requestResponse = (T) new RequestResponse(jsonObj, tag, response.statusCode);
             return Response.success(requestResponse, HttpHeaderParser.parseCacheHeaders(response));
@@ -67,22 +71,12 @@ public class CustomRequest <T> extends Request<T> {
             return Response.error(new ParseError(e));
         } catch (JSONException e) {
             return Response.error(new ParseError(e));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return Response.error(new ParseError(new Exception()));
     }
 
 
-    private String getSessionId(String cookie) {
-        String sessionId = "";
-        if (cookie != null && !cookie.isEmpty()) {
-            String[] setCookie = cookie.split(";");
-            for (String t : setCookie) {
-                String[] value = t.split("=");
-                if (value[0].equals("sessionid")) {
-                    sessionId = value[1];
-                }
 
-            }
-        }
-        return sessionId;
-    }
 }
