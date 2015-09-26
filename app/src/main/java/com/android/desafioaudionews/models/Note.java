@@ -65,6 +65,9 @@ public class Note {
     @DatabaseField
     public String imageSrc;
 
+    @DatabaseField
+    public boolean isFavorite;
+
     public Category category;
 
 
@@ -95,6 +98,7 @@ public class Note {
                     aNote.url = jsonObj.getString("url");
                     aNote.image = Image.parseImage(jsonObj.getJSONArray("imagenes"));
                     aNote.category = Category.parseCategory(jsonObj.getJSONObject("categoria"));
+                    aNote.isFavorite = false;
                     notes.add(aNote);
 
 
