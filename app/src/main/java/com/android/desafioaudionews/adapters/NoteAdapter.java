@@ -1,7 +1,6 @@
 package com.android.desafioaudionews.adapters;
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.models.Note;
-import com.j256.ormlite.stmt.query.Not;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -36,7 +34,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_view, parent, false);
+                .inflate(R.layout.row_note_cardview, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
