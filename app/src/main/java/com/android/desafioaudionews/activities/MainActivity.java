@@ -16,7 +16,11 @@ import android.view.MenuItem;
 import com.android.desafioaudionews.R;
 import com.android.desafioaudionews.adapters.CustomTabPagerAdapter;
 import com.android.desafioaudionews.database.DatabaseHelper;
+<<<<<<< HEAD
 import com.android.desafioaudionews.models.Note;
+=======
+import com.android.desafioaudionews.models.Category;
+>>>>>>> bc38ffe7e75f436978743393c5975fb3b1d9389c
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.List;
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView view;
     @InjectView(R.id.tabLayout)
     TabLayout tabLayout;
+    private DatabaseHelper databaseHelper;
 
     private DatabaseHelper databaseHelper;
 
@@ -76,15 +81,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager() {
 
-        String[] categoriesList = getResources().getStringArray(R.array.string_categories);
-        CustomTabPagerAdapter adapter = new CustomTabPagerAdapter(getSupportFragmentManager(),categoriesList);
+        List<Category> categoryList = getHelper().getCategoryDao().queryForAll();
+       // List<CategoryNote> categoryNoteList = getHelper().getCategoryNoteDao().queryForAll();
+       // List<Note> note = getHelper().getNoteDao().queryForAll();
+
+        CustomTabPagerAdapter adapter = new CustomTabPagerAdapter(getSupportFragmentManager(),categoryList);
         /*for (String category : categoriesList) {
             CategoryFragment fragment = new CategoryFragment();
             adapter.addFrag(fragment);
         }*/
         viewContainer.setAdapter(adapter);
         //this method is used to prevent that the ViewPager destroy the off-screen views
-        viewContainer.setOffscreenPageLimit(categoriesList.length);
+        viewContainer.setOffscreenPageLimit(categoryList.size());
         //disable scrolling into viwePager
         tabLayout.setupWithViewPager(viewContainer);
 
@@ -109,9 +117,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     private List<Note> getNotesByCategory(int categoryID){
         return getHelper().getNotesByCategoryID(categoryID);
     }
+
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {

@@ -1,23 +1,30 @@
 package com.android.desafioaudionews.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.android.desafioaudionews.fragments.CategoryFragment;
+import com.android.desafioaudionews.models.Category;
+import com.android.desafioaudionews.utils.Const;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomTabPagerAdapter  extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
-    private String[] mCategoriesList;
+    private List<Category> mCategoryList;
 
-    public CustomTabPagerAdapter(FragmentManager fm, String[] categoriesList) {
+    public CustomTabPagerAdapter(FragmentManager fm, List<Category> categoryList) {
         super(fm);
-        mCategoriesList = categoriesList;
-        for (String category : mCategoriesList) {
-            mFragmentList.add(new CategoryFragment());
+        mCategoryList = categoryList;
+        for (Category category : mCategoryList) {
+            Bundle args = new Bundle();
+            args.putInt(Const.CATEGORY_ID, category.id);
+            CategoryFragment categoryFragment = new CategoryFragment();
+            categoryFragment.setArguments(args);
+            mFragmentList.add(categoryFragment);
         }
     }
 
@@ -33,6 +40,6 @@ public class CustomTabPagerAdapter  extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mCategoriesList[position];
+        return ((Category)mCategoryList.get(position)).valor;
     }
 }
