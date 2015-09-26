@@ -26,8 +26,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.ScrShare">
-
+        <activity android:name=".activities.ScrShare"
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

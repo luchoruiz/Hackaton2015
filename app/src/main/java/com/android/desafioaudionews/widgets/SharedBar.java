@@ -10,7 +10,7 @@ import com.android.desafioaudionews.interfaces.OnItemSelected;
  */
 public class SharedBar implements SharedButton.OnCheckedChangeListener {
     private Activity activity;
-    private SharedButton btnNewsRush;
+    private SharedButton btnWhatsapp;
     private SharedButton btnMail;
     private SharedButton btnfacebook;
     private SharedButton btnTwitter;
@@ -25,23 +25,23 @@ public class SharedBar implements SharedButton.OnCheckedChangeListener {
     }
 
     private void init(Activity activity) {
-        btnNewsRush = (SharedButton) activity.findViewById(R.id.btnNewsRush);
+        btnWhatsapp = (SharedButton) activity.findViewById(R.id.btnWhatsapp);
         btnMail = (SharedButton) activity.findViewById(R.id.btnMail);
         btnfacebook = (SharedButton) activity.findViewById(R.id.btnfacebook);
         btnTwitter = (SharedButton) activity.findViewById(R.id.btnTwitter);
         //set icons
-        btnNewsRush.setText((char) 0xe60e);
+        btnWhatsapp.setText((char) 0xe60e);
         btnfacebook.setText((char) 0xf09a);
         btnMail.setText((char) 0xf003);
         btnTwitter.setText((char) 0xf099);
         //set Listeners
-        btnNewsRush.setOnCheckedChangeListener(this);
+        btnWhatsapp.setOnCheckedChangeListener(this);
         btnfacebook.setOnCheckedChangeListener(this);
         btnMail.setOnCheckedChangeListener(this);
         btnTwitter.setOnCheckedChangeListener(this);
         //set first option selected
         //setChecked(btnNewsRush.getId(),true);
-        setChecked(btnNewsRush.getId(), true);
+        setChecked(btnWhatsapp.getId(), true);
     }
 
 
@@ -61,8 +61,8 @@ public class SharedBar implements SharedButton.OnCheckedChangeListener {
             lastSelected = buttonId;
         }
         switch (buttonId) {
-            case R.id.btnNewsRush:
-                btnNewsRush.setChecked(isChecked);
+            case R.id.btnWhatsapp:
+                btnWhatsapp.setChecked(isChecked);
                 break;
             case R.id.btnMail:
                 btnMail.setChecked(isChecked);

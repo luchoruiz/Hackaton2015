@@ -60,20 +60,19 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_favourite:
                         Intent newIntent = new Intent(MainActivity.this, FavouritesActivity.class);
                         startActivity(newIntent);
-                        drawerLayout.closeDrawers();
                         break;
                     case R.id.drawer_downloaded:
-                        Intent toShare = new Intent(getApplicationContext(), ScrShare.class);
-                        toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getApplicationContext().startActivity(toShare);
-                        drawerLayout.closeDrawers();
+                        Intent toShare = new Intent(MainActivity.this, ScrShare.class);
+                        startActivity(toShare);
                         break;
                     case R.id.drawer_more:
+                        Intent shareIntent = new Intent(MainActivity.this, ScrShare.class);
+                        startActivity(shareIntent);
                         break;
 
 
                 }
-
+                drawerLayout.closeDrawers();
 
                 return true;
             }
@@ -127,13 +126,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    private List<Note> getNotesByCategory(int categoryID){
-        return getHelper().getNotesByCategoryID(categoryID);
-    }
-
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {
