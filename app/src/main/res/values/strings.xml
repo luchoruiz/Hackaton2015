@@ -8,6 +8,7 @@
     <string name="downloads_label">Downloads</string>
     <string name="more__label">More</string>
     <string name="settings_label">Settings</string>
+    <string name="add_email_label">Agregá un mail</string>
 
     <!-- Categories array-->
     <string-array name="string_categories">

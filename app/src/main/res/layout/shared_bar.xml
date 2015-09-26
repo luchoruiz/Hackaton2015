@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.android.desafioaudionews.widgets.SharedButton
+        style="@style/SharedButton"
+        android:id="@+id/btnNewsRush"
+        custom:checked = "true"
+        >
+    </com.android.desafioaudionews.widgets.SharedButton>
+
+    <com.android.desafioaudionews.widgets.SharedButton
+        style="@style/SharedButton"
+        android:id="@+id/btnMail"
+        >
+    </com.android.desafioaudionews.widgets.SharedButton>
+
+    <com.android.desafioaudionews.widgets.SharedButton
+        style="@style/SharedButton"
+        android:id="@+id/btnfacebook"
+        >
+    </com.android.desafioaudionews.widgets.SharedButton>
+
+    <com.android.desafioaudionews.widgets.SharedButton
+        style="@style/SharedButton"
+        android:id="@+id/btnTwitter"
+        >
+
+    </com.android.desafioaudionews.widgets.SharedButton>>
+
+</LinearLayout>

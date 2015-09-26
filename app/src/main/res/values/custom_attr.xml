@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="mIconTextView">
+        <attr name="textIconSize" format="dimension" />
+        <attr name="textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="mSharedButton">
+    <attr name="textSize" format="dimension" />
+    <attr name="iconColorSelected" format="color" />
+    <attr name="iconColorUnSelected" format="color" />
+    <attr name="dividerColorSelected" format="color" />
+    <attr name="dividerColorUnSelected" format="color" />
+    <attr name="unSelecteManually" format="boolean" />
+    <attr name="checked" format="boolean" />
+    </declare-styleable>
+</resources>
