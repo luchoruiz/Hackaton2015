@@ -2,7 +2,7 @@ package com.android.desafioaudionews.models;
 
 import android.util.Log;
 
-import com.arasthel.asyncjob.AsyncJob;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -75,7 +75,7 @@ public class Note {
     Image image;
 
 
-    public static List<Note> parseNotes(JSONObject strNotes){
+    public static List<Note> parseNotes(JSONObject strNotes) {
         List<Note> notes = new ArrayList<>();
         JSONArray notesJSONArray = null;
 
@@ -87,7 +87,7 @@ public class Note {
             }
 
         if (notesJSONArray.length() > 0) {
-            for(int i = 0; i < notesJSONArray.length(); i++){
+            for (int i = 0; i < notesJSONArray.length(); i++) {
                 Note aNote = new Note();
                 try {
                     JSONObject jsonObj = (JSONObject) notesJSONArray.get(i);
@@ -100,22 +100,22 @@ public class Note {
                     aNote.category = Category.parseCategory(jsonObj.getJSONObject("categoria"));
 
                     try {
-                        JSONObject epigrafeJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0)).getJSONObject("epigrafe");
+                        JSONObject epigrafeJSONObj = ((JSONObject) jsonObj.getJSONArray("imagenes").get(0)).getJSONObject("epigrafe");
                         aNote.epigrafe = epigrafeJSONObj.getString("valor");
-                    } catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
 
                     try {
-                        JSONObject srcJSONObj = ((JSONObject)jsonObj.getJSONArray("imagenes").get(0));
+                        JSONObject srcJSONObj = ((JSONObject) jsonObj.getJSONArray("imagenes").get(0));
                         aNote.imageSrc = srcJSONObj.getString("src");
-                    } catch (JSONException e){
+                    } catch (JSONException e) {
 
                     }
                     aNote.isFavorite = false;
                     notes.add(aNote);
 
-                } catch (JSONException e){
+                } catch (JSONException e) {
 
                 }
 
@@ -125,32 +125,12 @@ public class Note {
 
     }
 
-    public static void parseAsyncNotes(final JSONObject strNotes) {
-
-        new AsyncJob.AsyncJobBuilder<Boolean>()
-                .doInBackground(new AsyncJob.AsyncAction<Boolean>() {
-                    @Override
-                    public Boolean doAsync() {
-                        List<Note> notes = parseNotes(strNotes);
-                        return true;
-                    }
-                })
-                .doWhenFinished(new AsyncJob.AsyncResultAction<Boolean>() {
-                    @Override
-                    public void onResult(Boolean result) {
-                        Log.e("asdasda", "asdasdas");
-                        //Toast.makeText(context, "Result was: " + result, Toast.LENGTH_SHORT).show();
-                    }
-                }).create().start();
-
-
-
-    }
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
 

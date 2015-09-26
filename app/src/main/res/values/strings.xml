@@ -29,4 +29,14 @@
     </string-array>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_favourites">Favourites</string>
+    <string name="error_to_show_note">Error al compartir la noticia</string>
+    <string name="error_invalid_email_format">uno o mas mails inválidos</string>
+    <string name="error_to_share_with_fb">Todavia no es posible compartir mediante Facebook, disculpe las molestias</string>
+    <string name="error_to_show_with_tw">Todavia no es posible compartir mediante Twitter, disculpe las molestias</string>
+    <string name="select_at_least_one_option">Seleccione al menos un medio para compartir</string>
+    <string name="error_ws_isnot_installed">Instale Whatsapp antes de compartir</string>
+    <string name="news_lanacion_label">Novedades La Nacion</string>
+    <string name="error_gmail_isnot_available">Debe instalar Gmail antes de compartir</string>
+    <string name="sharing_label">Compartiendo...</string>
+    <string name="add_a_msg_labels">Agregá un mensaje</string>
 </resources>

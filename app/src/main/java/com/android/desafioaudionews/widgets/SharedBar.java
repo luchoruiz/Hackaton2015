@@ -30,9 +30,9 @@ public class SharedBar implements SharedButton.OnCheckedChangeListener {
         btnfacebook = (SharedButton) activity.findViewById(R.id.btnfacebook);
         btnTwitter = (SharedButton) activity.findViewById(R.id.btnTwitter);
         //set icons
-        btnWhatsapp.setText((char) 0xe60e);
+        btnWhatsapp.setText((char) 0xf095);
         btnfacebook.setText((char) 0xf09a);
-        btnMail.setText((char) 0xf003);
+        btnMail.setText((char) 0xf0e0);
         btnTwitter.setText((char) 0xf099);
         //set Listeners
         btnWhatsapp.setOnCheckedChangeListener(this);
