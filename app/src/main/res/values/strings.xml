@@ -29,7 +29,6 @@
     </string-array>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_favourites">Favourites</string>
-<<<<<<< HEAD
     <string name="title_note">Listen</string>
     <string name="title_new">New</string>
     <string name="title_clear">Clear </string>
@@ -39,8 +38,16 @@
     <string name="btn_share">Share</string>
     <string name="loading">Loading Articles</string>
     <string name="btn_viewmore">View More</string>
-=======
-    <string name="title_note">Listen New</string>
     <string name="error_on_init_tts">Imposible lanzar el reproductor de audio</string>
->>>>>>> e624d34d7ac0bd6d70d80758160afb342a300d54
+    <string name="error_to_show_note">Error al compartir la noticia</string>
+    <string name="error_invalid_email_format">uno o mas mails inválidos</string>
+    <string name="error_to_share_with_fb">Todavia no es posible compartir mediante Facebook, disculpe las molestias</string>
+    <string name="error_to_show_with_tw">Todavia no es posible compartir mediante Twitter, disculpe las molestias</string>
+    <string name="select_at_least_one_option">Seleccione al menos un medio para compartir</string>
+    <string name="error_ws_isnot_installed">Instale Whatsapp antes de compartir</string>
+    <string name="news_lanacion_label">Novedades La Nacion</string>
+    <string name="error_gmail_isnot_available">Debe instalar Gmail antes de compartir</string>
+    <string name="sharing_label">Compartiendo...</string>
+    <string name="add_a_msg_labels">Agregá un mensaje</string>
+
 </resources>

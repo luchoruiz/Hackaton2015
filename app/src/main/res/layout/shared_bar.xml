@@ -6,7 +6,7 @@
 
     <com.android.desafioaudionews.widgets.SharedButton
         style="@style/SharedButton"
-        android:id="@+id/btnNewsRush"
+        android:id="@+id/btnWhatsapp"
         custom:checked = "true"
         >
     </com.android.desafioaudionews.widgets.SharedButton>

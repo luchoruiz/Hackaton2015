@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_favourite:
                         Intent newIntent = new Intent(MainActivity.this, FavouritesActivity.class);
                         startActivity(newIntent);
-                        drawerLayout.closeDrawers();
                         break;
 
-                }
 
+                }
+                drawerLayout.closeDrawers();
 
                 return true;
             }
@@ -118,13 +118,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-    private List<Note> getNotesByCategory(int categoryID){
-        return getHelper().getNotesByCategoryID(categoryID);
-    }
-
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {

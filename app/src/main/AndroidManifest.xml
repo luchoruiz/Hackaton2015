@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.desafioaudionews" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,6 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        tools:replace="android:icon,android:theme"
         android:theme="@style/AppTheme" >
 
 
@@ -26,8 +28,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.ScrShare">
-
+        <activity android:name=".activities.ScrShare"
+            android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity

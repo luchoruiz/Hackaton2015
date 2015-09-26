@@ -1,11 +1,9 @@
 package com.android.desafioaudionews.activities;
 
-<<<<<<< HEAD
+
 import android.content.Intent;
-=======
 import android.media.MediaPlayer;
 import android.net.Uri;
->>>>>>> e624d34d7ac0bd6d70d80758160afb342a300d54
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;

@@ -13,21 +13,7 @@
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/linearInterest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/interestSpinner" />
-
-        </LinearLayout>
-
-        <include layout="@layout/shared_bar"
-             />
+        <include layout="@layout/shared_bar"/>
 
 
 
@@ -99,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:hint="Agregá un mensaje"
+                android:hint="@string/add_a_msg_labels"
                 android:id="@+id/txtShareNote" />
 
             <ImageButton
