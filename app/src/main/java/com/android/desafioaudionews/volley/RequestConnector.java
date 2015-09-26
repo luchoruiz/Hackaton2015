@@ -51,6 +51,10 @@ public class RequestConnector  {
     }
 
 
+    public void getNoteWithId(int id, Response.Listener<RequestResponse> listenerOK, Response.ErrorListener listenerError, String tag){
+        executeRequest(listenerOK, listenerError, UrlConstants.NOTE + id, tag, Request.Method.GET);
+    }
+
 
 
 }
