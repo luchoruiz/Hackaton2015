@@ -49,12 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setDrawerMenu();
         setupViewPager();
 
-        List<Category> categoryList = getHelper().getCategoryDao().queryForAll();
-        List<CategoryNote> categoryNoteList = getHelper().getCategoryNoteDao().queryForAll();
-        List<Note> note = getHelper().getNoteDao().queryForAll();
-
-
-
     }
 
     private void setDrawerMenu() {
@@ -84,15 +78,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager() {
 
-        String[] categoriesList = getResources().getStringArray(R.array.string_categories);
-        CustomTabPagerAdapter adapter = new CustomTabPagerAdapter(getSupportFragmentManager(),categoriesList);
+        List<Category> categoryList = getHelper().getCategoryDao().queryForAll();
+       // List<CategoryNote> categoryNoteList = getHelper().getCategoryNoteDao().queryForAll();
+       // List<Note> note = getHelper().getNoteDao().queryForAll();
+
+        CustomTabPagerAdapter adapter = new CustomTabPagerAdapter(getSupportFragmentManager(),categoryList);
         /*for (String category : categoriesList) {
             CategoryFragment fragment = new CategoryFragment();
             adapter.addFrag(fragment);
         }*/
         viewContainer.setAdapter(adapter);
         //this method is used to prevent that the ViewPager destroy the off-screen views
-        viewContainer.setOffscreenPageLimit(categoriesList.length);
+        viewContainer.setOffscreenPageLimit(categoryList.size());
         //disable scrolling into viwePager
         tabLayout.setupWithViewPager(viewContainer);
 
