@@ -24,8 +24,9 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SweetAlertDialog.OnSweetClickListener{
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
     @InjectView(R.id.contentViews)
@@ -61,8 +62,13 @@ public class MainActivity extends AppCompatActivity {
                         Intent newIntent = new Intent(MainActivity.this, FavouritesActivity.class);
                         startActivity(newIntent);
                         break;
-
-
+                    case R.id.drawer_settings:
+                        new SweetAlertDialog(MainActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText(getString(R.string.sorry_label))
+                                .setContentText(getString(R.string.error_unavailable_feature))
+                                .setConfirmClickListener(MainActivity.this)
+                                .show();
+                        break;
                 }
                 drawerLayout.closeDrawers();
 
@@ -125,5 +131,10 @@ public class MainActivity extends AppCompatActivity {
                     OpenHelperManager.getHelper(this, DatabaseHelper.class);
         }
         return databaseHelper;
+    }
+
+    @Override
+    public void onClick(SweetAlertDialog sweetAlertDialog) {
+        sweetAlertDialog.dismiss();
     }
 }

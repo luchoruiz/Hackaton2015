@@ -53,9 +53,10 @@ public class ScrShare extends AppCompatActivity implements OnItemSelected, Sweet
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             //TODO:check != null noteTitle && noteUrl
-            noteTitle = extras.getString(Const.NOTE_ID);
+            noteTitle = extras.getString(Const.NOTE_TITLE);
             noteUrl = extras.getString(Const.NOTE_URL);
         }
+        txtNewsTitle.setText(noteTitle);
         selectedshareItem = R.id.btnWhatsapp;
     }
 

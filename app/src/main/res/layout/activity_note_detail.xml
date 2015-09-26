@@ -84,10 +84,10 @@
 
                 </FrameLayout>
 
-                <TextView
+                <com.android.desafioaudionews.widgets.MSBoldTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/title_text_size"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:text=""
@@ -124,15 +124,18 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginLeft="@dimen/activity_horizontal_min_margin"
+                            android:visibility="gone"
                             android:text="@string/btn_share"
                             android:id="@+id/buttonShare" />
                     </LinearLayout>
 
-                    <TextView
+                    <com.android.desafioaudionews.widgets.MSRegularTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:textSize="@dimen/subtitle_text_size"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin_double"
+                        android:layout_marginBottom="@dimen/activity_horizontal_margin_double"
                         android:id="@+id/textViewContent" />
                 </LinearLayout>
             </LinearLayout>
@@ -165,6 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
+                        android:visibility="gone"
                         android:gravity="bottom"
                         android:id="@+id/seekBarProgress" />
                 </LinearLayout>

@@ -59,7 +59,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
     @InjectView(R.id.seekBarProgress)
     SeekBar mSeekBar;
 
-    private Handler durationHandler ;
+    private Handler durationHandler;
     @InjectView(R.id.fabFavourite)
     FloatingActionButton fabFavourite;
 
@@ -92,7 +92,12 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
 
         RequestConnector requestConnector = new RequestConnector(NoteDetailActivity.this);
         requestConnector.getNoteWithId(noteId, this, this, Const.REQUEST_NOTE);
-
+        buttonPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tts.synthesizeToFIle(mNote.getAllNote(), NoteDetailActivity.this);
+            }
+        });
     }
 
     private void drawDetail(final Note note) {
@@ -129,7 +134,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
             public void onClick(View view) {
                 Intent webView = new Intent(getApplicationContext(), ScrWebViewActivity.class);
                 webView.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                webView.putExtra("url",UrlConstants.BASE_LANACION + note.url);
+                webView.putExtra("url", UrlConstants.BASE_LANACION + note.url);
                 startActivity(webView);
             }
         });
@@ -155,8 +160,7 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.menu_news, menu);
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
         return true;
     }
 
@@ -165,7 +169,15 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                break;
+            case R.id.action_share:
+                Intent toShare = new Intent(getApplicationContext(), ScrShare.class);
+                toShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                toShare.putExtra(Const.NOTE_TITLE, mNote.titulo);
+                toShare.putExtra(Const.NOTE_URL, mNote.url);
+                getApplicationContext().startActivity(toShare);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -196,11 +208,6 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         drawDetail(mNote);
     }
 
-    @OnClick(R.id.buttonPlay)
-    public void play(Button button) {
-        tts.synthesizeToFIle(mNote.getAllNote(), this);
-
-    }
 
     @Override
     public void onFinish(Uri uriFile) {
@@ -218,8 +225,6 @@ public class NoteDetailActivity extends AppCompatActivity implements Response.Li
         mSeekBar.setMax(mMediaPlayer.getDuration());
 
     }
-
-   
 
 
     private void synchronizedSeekBar() {

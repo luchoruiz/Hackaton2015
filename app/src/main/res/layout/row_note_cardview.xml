@@ -35,7 +35,7 @@
                 android:background="@android:color/white"
                 android:scaleType="centerCrop" />
 
-            <TextView
+            <com.android.desafioaudionews.widgets.MSLightTextView
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,11 +49,11 @@
                 android:textSize="@dimen/abc_text_size_headline_material" />
         </FrameLayout>
 
-        <TextView
+        <com.android.desafioaudionews.widgets.MSRegularTextview
             android:layout_width="wrap_content"
             android:layout_below="@+id/headerLayout"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_small_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_margin="5dp"
             android:id="@+id/txtBajada" />
 

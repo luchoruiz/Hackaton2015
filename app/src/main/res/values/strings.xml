@@ -49,5 +49,8 @@
     <string name="error_gmail_isnot_available">Debe instalar Gmail antes de compartir</string>
     <string name="sharing_label">Compartiendo...</string>
     <string name="add_a_msg_labels">Agregá un mensaje</string>
+    <string name="sorry_label">Disculpe las molestias</string>
+    <string name="error_unavailable_feature">Esta feature todavía no se encuentra implementada</string>
+    <string name="share_label">Share</string>
 
 </resources>
